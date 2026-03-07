@@ -18,6 +18,7 @@ if not os.path.exists(model_path):
 
     from tensorflow.keras.models import load_model
     model = load_model("plant_disease_model.h5")
+    model.summary()
 
 
 # -------------------------------------------------
@@ -234,6 +235,7 @@ if uploaded_file is not None:
     unsafe_allow_html=True
 
     )
+
 
 
 

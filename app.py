@@ -24,7 +24,7 @@ def download_and_load_model():
 
     # Load model
     with st.spinner("Loading model..."):
-        model = load_model(MODEL_PATH, compile=False)
+        model = tf.keras.models.load_model(MODEL_PATH, compile=False)
     st.success("Model loaded successfully!")
     return model
 
@@ -222,3 +222,4 @@ if uploaded_file is not None:
     """,
     unsafe_allow_html=True
     )
+

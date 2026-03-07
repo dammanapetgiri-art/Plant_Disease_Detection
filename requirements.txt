@@ -2,8 +2,8 @@ streamlit
 tensorflow==2.12.0
 numpy
 opencv-python-headless
-pillow
 scikit-learn
 gdown
+
 
 

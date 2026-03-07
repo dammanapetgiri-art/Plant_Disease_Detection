@@ -7,6 +7,20 @@ from tensorflow.keras.models import load_model
 from PIL import Image
 import os
 import gdown
+from tensorflow.keras.layers import InputLayer
+
+# Fix compatibility for old models
+def patched_input_layer_from_config(cls, config):
+
+    if "batch_shape" in config:
+        batch_shape = config.pop("batch_shape")
+        config["shape"] = tuple(batch_shape[1:])  # (128,128,3)
+
+    config.pop("optional", None)
+
+    return cls(**config)
+
+InputLayer.from_config = classmethod(patched_input_layer_from_config)
 
 # -------------------------------------------------
 # Model Download + Load
@@ -223,5 +237,6 @@ if uploaded_file is not None:
     """,
     unsafe_allow_html=True
     )
+
 
 

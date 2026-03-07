@@ -7,19 +7,34 @@ from PIL import Image
 import os
 import gdown
 
-# Download model from Google Drive
-model_path = "plant_disease_model.h5"
+# -------------------------------------------------
+# Model Download + Load
+# -------------------------------------------------
+MODEL_PATH = "plant_disease_model.h5"
+FILE_ID = "1jSwuNU-q69Iht0tekSYGHgTPGw6DIFAo"  # Extracted from your Drive link
 
-if not os.path.exists(model_path):
-    url = f"https://drive.google.com/file/d/1jSwuNU-q69Iht0tekSYGHgTPGw6DIFAo/view?usp=drive_link"
-    output = "plant_disease_model.h5"
-    if not os.path.exists(output):
-        gdown.download(url, output, quiet=False)
+@st.cache_resource
+def download_and_load_model():
+    # Download model if it doesn't exist
+    if not os.path.exists(MODEL_PATH):
+        with st.spinner("Downloading model, please wait..."):
+            url = f"https://drive.google.com/uc?id={FILE_ID}"
+            gdown.download(url, MODEL_PATH, quiet=False)
+        st.success("Model downloaded!")
 
-    from tensorflow.keras.models import load_model
-    model = load_model("plant_disease_model.h5")
-    model.summary()
+    # Load model
+    with st.spinner("Loading model..."):
+        model = load_model(MODEL_PATH, compile=False)
+    st.success("Model loaded successfully!")
+    return model
 
+model = download_and_load_model()
+
+# -------------------------------------------------
+# Load Class Labels
+# -------------------------------------------------
+with open("label_classes.pkl", "rb") as f:
+    class_names = pickle.load(f)
 
 # -------------------------------------------------
 # Page Configuration
@@ -31,7 +46,7 @@ st.set_page_config(
 )
 
 # -------------------------------------------------
-# Glassmorphism Styling
+# Glassmorphism Styling (Your original CSS fully intact)
 # -------------------------------------------------
 page_bg = """
 <style>
@@ -66,7 +81,6 @@ font-size:26px !important;
 color:#1b5e20;
 margin-bottom:30px;
 }
-
 
 /* Upload Section */
 .stFileUploader{
@@ -138,39 +152,20 @@ border-radius:15px;
 st.markdown(page_bg, unsafe_allow_html=True)
 
 # -------------------------------------------------
-# Load Model
-# -------------------------------------------------
-@st.cache_resource
-def load_my_model():
-    return load_model(model_path, compile=False)
-
-model = load_my_model()
-
-# -------------------------------------------------
-# Load Class Labels
-# -------------------------------------------------
-with open("label_classes.pkl", "rb") as f:
-    class_names = pickle.load(f)
-
-# -------------------------------------------------
 # Title
 # -------------------------------------------------
 st.markdown('<p class="title">🌿 Plant Disease Detection</p>', unsafe_allow_html=True)
-
-st.markdown(
-'<p class="subtitle">Upload a leaf image and detect plant diseases using Artificial Intelligence</p>',
-unsafe_allow_html=True
-)
+st.markdown('<p class="subtitle">Upload a leaf image and detect plant diseases using Artificial Intelligence</p>', unsafe_allow_html=True)
 
 # -------------------------------------------------
-# Glass Upload Card
+# Upload Card
 # -------------------------------------------------
 st.markdown('<div class="glass-card">', unsafe_allow_html=True)
 
 uploaded_file = st.file_uploader(
-"📤 Upload Leaf Image",
-type=["jpg","png","jpeg"],
-help="Upload a plant leaf image to detect disease"
+    "📤 Upload Leaf Image",
+    type=["jpg","png","jpeg"],
+    help="Upload a plant leaf image to detect disease"
 )
 
 st.markdown('</div>', unsafe_allow_html=True)
@@ -179,9 +174,7 @@ st.markdown('</div>', unsafe_allow_html=True)
 # Prediction
 # -------------------------------------------------
 if uploaded_file is not None:
-
     image = Image.open(uploaded_file)
-
     st.image(image, caption="Uploaded Leaf Image", use_column_width=True)
 
     img = np.array(image)
@@ -190,7 +183,6 @@ if uploaded_file is not None:
     img = np.reshape(img,(1,128,128,3))
 
     prediction = model.predict(img)
-
     predicted_class = class_names[np.argmax(prediction)]
     confidence = np.max(prediction) * 100
 
@@ -202,18 +194,14 @@ if uploaded_file is not None:
     </div>
     """,
     unsafe_allow_html=True
-)
-    
+    )
+
     # ------------------------------------------
     # Confidence Progress Bar
     # ------------------------------------------
-
     st.markdown("### 📈 Confidence Level")
-
     progress_value = int(confidence)
-
     progress_bar = st.progress(0)
-
     for i in range(progress_value + 1):
         progress_bar.progress(i)
 
@@ -233,12 +221,4 @@ if uploaded_file is not None:
     </div>
     """,
     unsafe_allow_html=True
-
     )
-
-
-
-
-
-
-

@@ -13,7 +13,8 @@ model_path = "plant_disease_model.h5"
 if not os.path.exists(model_path):
     file_id = "1rmy-b3DcyYEQyBrH1_nq-0fg_1bjo-Ma"
     url = f"https://drive.google.com/uc?id={file_id}"
-    gdown.download(url, model_path, quiet=False,fuzzy=True)
+    gdown.download(url, model_path, quiet=False)
+    print(os.path.getsize(model_path))
 
 # -------------------------------------------------
 # Page Configuration
@@ -229,5 +230,6 @@ if uploaded_file is not None:
     unsafe_allow_html=True
 
     )
+
 
 

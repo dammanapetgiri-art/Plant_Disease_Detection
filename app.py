@@ -8,7 +8,7 @@ import os
 import gdown
 
 # Download model from Google Drive
-model_path = "plant_disease_model.keras"
+model_path = "plant_disease_model.h5"
 
 if not os.path.exists(model_path):
     file_id = "1rmy-b3DcyYEQyBrH1_nq-0fg_1bjo-Ma"
@@ -134,7 +134,11 @@ st.markdown(page_bg, unsafe_allow_html=True)
 # -------------------------------------------------
 # Load Model
 # -------------------------------------------------
-model = load_model(model_path,compile=False)
+@st.cache_resource
+def load_my_model():
+    return load_model(model_path, compile=False)
+
+model = load_my_model()
 
 # -------------------------------------------------
 # Load Class Labels
@@ -225,4 +229,5 @@ if uploaded_file is not None:
     unsafe_allow_html=True
 
     )
+
 

@@ -4,17 +4,6 @@ import cv2
 import pickle
 from tensorflow.keras.models import load_model
 from PIL import Image
-import os
-import gdown
-
-# Download model from Google Drive
-model_path = "plant_disease_model.keras"
-
-if not os.path.exists(model_path):
-    url = f"https://drive.google.com/file/d/1sDEEDSlLi4dMuGJGl2ryVhpgxS1ul8oh/view?usp=sharing"
-    output = "plant_disease_model.keras"
-    if not os.path.exists(output):
-        gdown.download(url, output, quiet=False)
 
 # -------------------------------------------------
 # Page Configuration
@@ -135,11 +124,7 @@ st.markdown(page_bg, unsafe_allow_html=True)
 # -------------------------------------------------
 # Load Model
 # -------------------------------------------------
-@st.cache_resource
-def load_my_model():
-    return load_model(model_path, compile=False)
-
-model = load_my_model()
+model = load_model("plant_disease_model.keras")
 
 # -------------------------------------------------
 # Load Class Labels
@@ -229,5 +214,3 @@ if uploaded_file is not None:
     """,
     unsafe_allow_html=True
     )
-
-

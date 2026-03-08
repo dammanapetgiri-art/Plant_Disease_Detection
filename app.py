@@ -11,8 +11,7 @@ import gdown
 model_path = "plant_disease_model.keras"
 
 if not os.path.exists(model_path):
-    file_id = "1_YoEJhArkHOdoWcLlQyYO4tAk2DVhsPF"
-    url = f"https://drive.google.com/file/d/1_YoEJhArkHOdoWcLlQyYO4tAk2DVhsPF/view?usp=drive_link"
+    url = f"https://drive.google.com/file/d/1sDEEDSlLi4dMuGJGl2ryVhpgxS1ul8oh/view?usp=sharing"
     output = "plant_disease_model.keras"
     if not os.path.exists(output):
         gdown.download(url, output, quiet=False)
@@ -230,4 +229,5 @@ if uploaded_file is not None:
     """,
     unsafe_allow_html=True
     )
+
 

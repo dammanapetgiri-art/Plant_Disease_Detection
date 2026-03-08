@@ -5,6 +5,7 @@ tensorflow==2.13.0
 pillow
 gdown
 keras==2.13.1
+h5py
 
 
 

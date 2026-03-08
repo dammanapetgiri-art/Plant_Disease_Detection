@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 import cv2
 import pickle
+import tensorflow as tf
 from tensorflow.keras.models import load_model
 from PIL import Image
 
@@ -214,4 +215,5 @@ if uploaded_file is not None:
     """,
     unsafe_allow_html=True
     )
+
 

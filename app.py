@@ -124,7 +124,7 @@ st.markdown(page_bg, unsafe_allow_html=True)
 # -------------------------------------------------
 # Load Model
 # -------------------------------------------------
-model = load_model("plant_disease_model.keras")
+model = tf.keras.models.load_model("plant_disease_model.keras", compile=False)
 
 # -------------------------------------------------
 # Load Class Labels
@@ -214,3 +214,4 @@ if uploaded_file is not None:
     """,
     unsafe_allow_html=True
     )
+

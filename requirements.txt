@@ -1,0 +1,11 @@
+streamlit
+numpy
+opencv-python-headless
+tensorflow==2.15.0
+pillow
+gdown
+
+
+
+
+

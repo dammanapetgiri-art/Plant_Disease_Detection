@@ -1,10 +1,11 @@
 streamlit
 numpy
 opencv-python-headless
-tensorflow==2.16.1
+tensorflow==2.13.0
 pillow
 gdown
-keras==3.0.5
+keras==2.13.1
+
 
 
 

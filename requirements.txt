@@ -4,6 +4,7 @@ opencv-python-headless
 tensorflow==2.15.0
 pillow
 gdown
+keras==2.15.0
 
 
 

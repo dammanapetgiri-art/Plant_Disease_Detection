@@ -5,6 +5,14 @@ import pickle
 import tensorflow as tf
 from tensorflow.keras.models import load_model
 from PIL import Image
+import os
+import gdown
+
+model_path = "plant_disease_model.h5"
+
+if not os.path.exists(model_path):
+    url = "https://drive.google.com/uc?id=11l2q2p2-1j2PX4yRRhY8FiBGZvVJeKTR"
+    gdown.download(url, model_path, quiet=False)
 
 # -------------------------------------------------
 # Page Configuration

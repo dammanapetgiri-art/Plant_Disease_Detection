@@ -139,10 +139,11 @@ import tensorflow as tf
 from tensorflow.keras.models import load_model
 from tensorflow.keras.layers import InputLayer
 
-model = load_model(
+
+model = tf.keras.models.load_model(
     "plant_disease_model.h5",
     compile=False,
-    custom_objects={"InputLayer": InputLayer}
+    safe_mode=False
 )
 
 # -------------------------------------------------

@@ -137,7 +137,7 @@ from tensorflow.keras.models import load_model
 
 import tensorflow as tf
 
-model = load_model("plant_disease_model.h5")
+model = load_model("plant_disease_model.h5", compile=False)
 
 # -------------------------------------------------
 # Load Class Labels

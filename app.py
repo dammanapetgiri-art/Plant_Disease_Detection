@@ -133,11 +133,17 @@ st.markdown(page_bg, unsafe_allow_html=True)
 # -------------------------------------------------
 # Load Model
 # -------------------------------------------------
-from tensorflow.keras.models import load_model
 
 import tensorflow as tf
 
-model = load_model("plant_disease_model.h5", compile=False)
+from tensorflow.keras.models import load_model
+from tensorflow.keras.layers import InputLayer
+
+model = load_model(
+    "plant_disease_model.h5",
+    compile=False,
+    custom_objects={"InputLayer": InputLayer}
+)
 
 # -------------------------------------------------
 # Load Class Labels

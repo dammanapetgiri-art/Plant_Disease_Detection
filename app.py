@@ -137,23 +137,7 @@ from tensorflow.keras.models import load_model
 
 import tensorflow as tf
 
-model = tf.keras.models.Sequential([
-    tf.keras.layers.Input(shape=(128,128,3)),
-    tf.keras.layers.Conv2D(32,(3,3),activation="relu"),
-    tf.keras.layers.MaxPooling2D(2,2),
-
-    tf.keras.layers.Conv2D(64,(3,3),activation="relu"),
-    tf.keras.layers.MaxPooling2D(2,2),
-
-    tf.keras.layers.Conv2D(128,(3,3),activation="relu"),
-    tf.keras.layers.MaxPooling2D(2,2),
-
-    tf.keras.layers.Flatten(),
-    tf.keras.layers.Dense(128,activation="relu"),
-    tf.keras.layers.Dense(38,activation="softmax")
-])
-
-model.load_weights("plant_disease_model.h5")
+model = load_model("plant_disease_model.h5")
 
 # -------------------------------------------------
 # Load Class Labels

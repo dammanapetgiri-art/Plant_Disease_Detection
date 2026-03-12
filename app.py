@@ -137,13 +137,12 @@ st.markdown(page_bg, unsafe_allow_html=True)
 import tensorflow as tf
 
 from tensorflow.keras.models import load_model
-from tensorflow.keras.layers import InputLayer
 
 
 model = tf.keras.models.load_model(
     "plant_disease_model.h5",
     compile=False,
-    safe_mode=False
+    custom_objects={"InputLayer": tf.keras.layers.InputLayer}
 )
 
 # -------------------------------------------------

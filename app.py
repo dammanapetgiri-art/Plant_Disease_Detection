@@ -8,7 +8,7 @@ from PIL import Image
 import os
 import gdown
 
-model_path = "plant_disease_model.h5"
+model_path = "plant_disease_model.keras"
 
 if not os.path.exists(model_path):
     url = "https://drive.google.com/uc?id=1Sy3VPGK5F502z1YXiZi0SXGQ9KWWEUxs"
